@@ -3,7 +3,8 @@
 
 require_relative 'board.rb'
 
-# instantiates games of connect four
+# provides the methods to play games of 'connect four'
+# on the corresponding board
 class ConnectFour < Board
   attr_reader :token0, :token1, :player
 
