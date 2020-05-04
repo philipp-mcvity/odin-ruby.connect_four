@@ -1,7 +1,9 @@
 # lib/board.rb
 # frozen_string_literal: true
 
-# grid and grid control for 'connect four'
+# provides all necessary and possible arrays to
+# control a standard 7x6 game of 'connect four'
+# provides methods to log the current status of the game to the console
 class Board
   attr_accessor :verticals
 
@@ -9,12 +11,55 @@ class Board
     @verticals = new_verticals
   end
 
+  def print_grid
+    print "\n\n _______________ \n"
+    6.times do |i|
+      puts "| #{horizontals[5 - i].map { |n| n.nil? ? ' ' : n }.join(' ')} |"
+    end
+    puts '| ─ ─ ─ ─ ─ ─ ─ |'
+    puts "| 0 1 2 3 4 5 6 |\n\n"
+  end
+
   def new_verticals
-    Array.new(7, Array.new(6, nil))
+    verticals = []
+    7.times do
+      new_ary = []
+      6.times do
+        new_ary << nil
+      end
+      verticals << new_ary
+    end
+    verticals
   end
 
   def all_arrays
     verticals + horizontals + diagonals(asc) + diagonals(desc)
+  end
+
+  # creates a deep copy of the current state
+  # for the destructive 'four_connected?' checkup
+  def all_arrays_clone
+    all_arrays.dup.map(&:dup)
+  end
+
+  def four_connected?(array)
+    pivot = array.shift
+    count = 1
+    until array.empty?
+      first = array.shift
+      first == pivot ? (count += 1 unless first.nil?) : count = 1
+      break if count == 4
+
+      pivot = first
+    end
+    return true if count == 4
+
+    false
+  end
+
+  def row(column)
+    nils = verticals[column].count(nil)
+    nils.zero? ? false : 6 - nils
   end
 
   def horizontals

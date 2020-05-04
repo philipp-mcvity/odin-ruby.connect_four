@@ -1,2 +1,2 @@
-# ignore main.rb until needed
-/lib/main.rb
+# ignore backup of the manual tests
+/lib/manual_test.rb
