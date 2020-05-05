@@ -8,3 +8,5 @@ play:
 ```Ruby
 ConnectFour.new.game
 ```
+
+[![Run on Repl.it](https://repl.it/badge/github/philipp-mcvity/odin-ruby.connect_four)](https://repl.it/github/philipp-mcvity/odin-ruby.connect_four)
